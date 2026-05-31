@@ -36,15 +36,26 @@ export default function ArchivesPage() {
   const [chatMessage, setChatMessage] = useState("");
 
   const { data: folders = [], isLoading: foldersLoading } = useListFolders({});
-  const { data: files = [], isLoading: filesLoading } = useListFiles({ folderId: undefined, search });
-  const { data: users = [] } = useListUsers();
-  const createFolder = useCreateFolder();
-  const deleteFile = useDeleteFile();
+const { data: files = [], isLoading: filesLoading } =
+  useListFiles({ folderId: undefined, search });
 
-  const canUpload = user?.role === "super_admin" || user?.role === "manager";
-  const canDelete = user?.role === "super_admin" || user?.role === "manager";
+const { data: users = [] } = useListUsers();
 
-  const rootFolders = (folders as any[]).filter((f: any) => !f.parentId);
+const createFolder = useCreateFolder();
+const deleteFile = useDeleteFile();
+
+const canUpload =
+  user?.role === "super_admin" ||
+  user?.role === "manager" ||
+  user?.role === "programmer";
+
+const canDelete =
+  user?.role === "super_admin" ||
+  user?.role === "manager" ||
+  user?.role === "programmer";
+
+const rootFolders =
+  (folders as any[]).filter((f: any) => !f.parentId);
 
   const handleCreateFolder = async () => {
     if (!newFolderName.trim()) return;
