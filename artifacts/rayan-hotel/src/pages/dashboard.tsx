@@ -221,10 +221,19 @@ export default function DashboardPage() {
             const Icon = stat.icon;
 
             return (
-              <Card
-                key={stat.key}
-                className="bg-card border-border"
-              >
+             <Card
+  key={stat.key}
+  onClick={() => {
+    if (stat.key === "totalFiles") {
+      navigate("/archives");
+    }
+  }}
+  className={cn(
+    "bg-card border-border",
+    stat.key === "totalFiles" &&
+      "cursor-pointer hover:border-primary/50 hover:bg-accent/50 hover:scale-[1.02] transition-all duration-200"
+  )}
+>
                 <CardContent className="p-4">
                   {statsLoading ? (
                     <Skeleton className="h-12 w-full" />
