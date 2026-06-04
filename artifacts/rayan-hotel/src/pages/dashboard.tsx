@@ -99,6 +99,11 @@ export default function DashboardPage() {
     }
   ];
 
+  const getStatsPath = (key: string) => {
+    if (key === "totalUsers") return "/employees";
+    return "/archives";
+  };
+
   const getActionColor = (action: string) => {
     if (action === "upload")
       return "bg-blue-500/15 text-blue-400";
@@ -221,19 +226,13 @@ export default function DashboardPage() {
             const Icon = stat.icon;
 
             return (
-             <Card
-  key={stat.key}
-  onClick={() => {
-    if (stat.key === "totalFiles") {
-      navigate("/archives");
-    }
-  }}
-  className={cn(
-    "bg-card border-border",
-    stat.key === "totalFiles" &&
-      "cursor-pointer hover:border-primary/50 hover:bg-accent/50 hover:scale-[1.02] transition-all duration-200"
-  )}
->
+              <Card
+                key={stat.key}
+                onClick={() => navigate(getStatsPath(stat.key))}
+                className={cn(
+                  "bg-card border-border cursor-pointer hover:border-primary/50 hover:bg-accent/50 hover:scale-[1.02] transition-all duration-200"
+                )}
+              >
                 <CardContent className="p-4">
                   {statsLoading ? (
                     <Skeleton className="h-12 w-full" />
